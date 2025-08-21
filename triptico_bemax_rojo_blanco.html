@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tríptico BE-MAX - Rojo y Blanco</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .triptico-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .fila {
+            display: flex;
+            min-height: 500px;
+        }
+
+        .panel {
+            flex: 1;
+            padding: 40px;
+            border-right: 3px solid #e0e0e0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .panel:last-child {
+            border-right: none;
+        }
+
+        /* FILA SUPERIOR */
+        /* Portada */
+        .portada {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .portada::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('baymax_rojo.jpg') center/cover;
+            opacity: 0.2;
+            z-index: 1;
+        }
+
+        .portada-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .portada h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            letter-spacing: 2px;
+        }
+
+        .portada .subtitulo {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            opacity: 0.95;
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        .portada .imagen-central {
+            width: 180px;
+            height: 180px;
+            background: url('baymax_rojo.jpg') center/cover;
+            border-radius: 50%;
+            margin: 20px auto;
+            border: 6px solid rgba(255,255,255,0.9);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .portada .frase-llamativa {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* ¿Qué es BE-MAX? */
+        .que-es {
+            background: white;
+            color: #333;
+        }
+
+        .que-es h2 {
+            color: #dc2626;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            border-bottom: 4px solid #dc2626;
+            padding-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .que-es p {
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: #444;
+            text-align: justify;
+            font-size: 1.1rem;
+        }
+
+        .que-es .descripcion-principal {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #dc2626;
+            margin-bottom: 25px;
+        }
+
+        /* Objetivo General */
+        .objetivo {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            color: #333;
+            text-align: center;
+        }
+
+        .objetivo h2 {
+            color: #dc2626;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .objetivo p {
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: #555;
+            text-align: justify;
+            font-size: 1.1rem;
+        }
+
+        .objetivo .imagen-cerebro {
+            width: 120px;
+            height: 120px;
+            background: url('cerebro_rojo.jpg') center/cover;
+            border-radius: 20px;
+            margin: 25px auto;
+            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
+            border: 3px solid #dc2626;
+        }
+
+        /* FILA INFERIOR */
+        /* Tecnologías */
+        .tecnologias {
+            background: white;
+            color: #333;
+        }
+
+        .tecnologias h2 {
+            color: #dc2626;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            border-bottom: 4px solid #dc2626;
+            padding-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .tecnologias h3 {
+            color: #b91c1c;
+            font-size: 1.4rem;
+            margin: 25px 0 15px 0;
+            font-weight: 600;
+        }
+
+        .tecnologias ul {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        .tecnologias li {
+            margin-bottom: 12px;
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .tecnologias li strong {
+            color: #dc2626;
+        }
+
+        /* Cómo funciona */
+        .como-funciona {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            color: #333;
+        }
+
+        .como-funciona h2 {
+            color: #dc2626;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .como-funciona p {
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: #555;
+            text-align: justify;
+            font-size: 1.1rem;
+        }
+
+        .como-funciona h3 {
+            color: #b91c1c;
+            font-size: 1.4rem;
+            margin: 25px 0 15px 0;
+            font-weight: 600;
+        }
+
+        .como-funciona ul {
+            margin-left: 25px;
+        }
+
+        .como-funciona li {
+            margin-bottom: 12px;
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Beneficios y Público */
+        .beneficios-publico {
+            background: #dc2626;
+            color: white;
+        }
+
+        .beneficios-publico h2 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            border-bottom: 3px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+        }
+
+        .beneficios-publico h3 {
+            color: #fecaca;
+            font-size: 1.3rem;
+            margin: 20px 0 10px 0;
+            font-weight: 600;
+        }
+
+        .beneficios-publico p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+        }
+
+        .beneficios-publico ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .beneficios-publico li {
+            margin-bottom: 8px;
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .seccion {
+            margin-bottom: 30px;
+        }
+
+        .seccion:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Efectos decorativos */
+        .panel::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .fila {
+                flex-direction: column;
+                min-height: auto;
+            }
+            
+            .panel {
+                border-right: none;
+                border-bottom: 3px solid #e0e0e0;
+                min-height: 400px;
+            }
+            
+            .panel:last-child {
+                border-bottom: none;
+            }
+            
+            .portada h1 {
+                font-size: 3rem;
+            }
+            
+            .portada .subtitulo {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .panel {
+                padding: 25px;
+            }
+            
+            .portada h1 {
+                font-size: 2.5rem;
+            }
+            
+            .que-es h2, .objetivo h2, .tecnologias h2, .como-funciona h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Estilos de impresión */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .triptico-container {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: none;
+            }
+            
+            .fila {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="triptico-container">
+        <!-- FILA SUPERIOR -->
+        <div class="fila">
+            <!-- Portada -->
+            <div class="panel portada">
+                <div class="portada-content">
+                    <h1>BE-MAX</h1>
+                    <p class="subtitulo">Plataforma web para mejorar el bienestar emocional y la concentración</p>
+                    <div class="imagen-central"></div>
+                    <p class="frase-llamativa">"Tu compañero virtual para un aprendizaje más feliz y concentrado"</p>
+                </div>
+            </div>
+
+            <!-- ¿Qué es BE-MAX? -->
+            <div class="panel que-es">
+                <h2>¿Qué es BE-MAX?</h2>
+                <p class="descripcion-principal">Una plataforma web innovadora diseñada para crear un ambiente seguro y tranquilo.</p>
+                <p>BE-MAX permite al usuario mejorar su bienestar emocional y concentración a través de un personaje virtual empático que lo acompaña en el desarrollo de sus actividades diarias.</p>
+                <p>La plataforma se adapta a las necesidades individuales de cada estudiante, proporcionando un entorno de aprendizaje personalizado y comprensivo.</p>
+            </div>
+
+            <!-- Objetivo General -->
+            <div class="panel objetivo">
+                <h2>Objetivo General</h2>
+                <div class="imagen-cerebro"></div>
+                <p>Facilitar un entorno digital que promueva el bienestar emocional del usuario mediante una asistencia virtual empática, accesible y adaptable.</p>
+                <p>Complementar el desarrollo académico y emocional a través del apoyo tecnológico inteligente y personalizado.</p>
+            </div>
+        </div>
+
+        <!-- FILA INFERIOR -->
+        <div class="fila">
+            <!-- Tecnologías -->
+            <div class="panel tecnologias">
+                <h2>Tecnologías</h2>
+                <h3>Utilizadas:</h3>
+                <ul>
+                    <li><strong>HTML y CSS:</strong> Diseño y estructura visual responsiva</li>
+                    <li><strong>JavaScript:</strong> Interacción dinámica y ejercicios adaptativos</li>
+                    <li><strong>Face-API.js:</strong> Detección de emociones en tiempo real</li>
+                </ul>
+                <p>Estas tecnologías trabajan en conjunto para crear una experiencia de usuario fluida y efectiva.</p>
+            </div>
+
+            <!-- ¿Cómo funciona? -->
+            <div class="panel como-funciona">
+                <h2>¿Cómo funciona?</h2>
+                <p>El usuario accede a la plataforma y permite el acceso a la cámara. BE-MAX identifica el estado emocional y adapta su interacción para brindar el mejor apoyo.</p>
+                
+                <h3>Características principales:</h3>
+                <ul>
+                    <li>Asistente virtual empático</li>
+                    <li>Reconocimiento facial de emociones</li>
+                    <li>Recomendaciones personalizadas</li>
+                    <li>Recordatorios y mensajes motivacionales</li>
+                </ul>
+            </div>
+
+            <!-- Beneficios y Público Objetivo -->
+            <div class="panel beneficios-publico">
+                <div class="seccion">
+                    <h2>Beneficios Esperados</h2>
+                    <ul>
+                        <li>Mayor concentración y enfoque en las tareas</li>
+                        <li>Disminución de ansiedad y estrés escolar</li>
+                        <li>Apoyo en el aprendizaje inclusivo y personalizado</li>
+                        <li>Acompañamiento constante en actividades académicas</li>
+                    </ul>
+                </div>
+
+                <div class="seccion">
+                    <h2>Público Objetivo</h2>
+                    <h3>Dirigido a:</h3>
+                    <p>Niños, niñas y adolescentes en edad escolar que presentan:</p>
+                    <ul>
+                        <li>Trastorno del Espectro Autista (TEA)</li>
+                        <li>Trastorno por Déficit de Atención (TDA/TDAH)</li>
+                        <li>Ansiedad o estrés escolar</li>
+                    </ul>
+                    
+                    <h3>Meta:</h3>
+                    <p>Crear un entorno educativo empático, inclusivo y adaptado a las necesidades específicas de cada estudiante.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
